@@ -1,0 +1,7 @@
+d:\用户目录\documents\visual studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\ProjectUnknown.exe.config
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\obj\Debug\ProjectUnknown.csprojResolveAssemblyReference.cache
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\ProjectUnknown.exe
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\ProjectUnknown.pdb
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\obj\Debug\ProjectUnknown.exe
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\obj\Debug\ProjectUnknown.pdb
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\ProjectFork.exe.config

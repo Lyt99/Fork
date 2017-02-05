@@ -1,0 +1,13 @@
+PRINTL 这是Test.zs文件！
+SLEEP 1
+PRINTL 我跳过来了！
+PRINTL 测试变量
+SLEEP 1
+SETVAR a 1
+SETVAR b 2
+SETVAR c 3
+PRINTL 设置a = 1, b = 2, c = 3
+SLEEP 1
+SETVAR c (%VAR:a% + %VAR:b%) == %VAR:c%
+PRINTVARS %VAR:c%
+PRINTL  
