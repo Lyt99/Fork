@@ -53,7 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commander.cs" />
     <Compile Include="DataManager.cs" />
+    <Compile Include="Exceptions\CommandException.cs" />
     <Compile Include="Exceptions\IllegalIndentException.cs" />
     <Compile Include="Exceptions\RuntimeException.cs" />
     <Compile Include="Exceptions\ScriptNotFoundException.cs" />
@@ -62,13 +64,24 @@
     <Compile Include="Enum\CommandType.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="FConsole.cs" />
+    <Compile Include="Models\Command.cs" />
+    <Compile Include="ScriptLines\ADDCMD.cs" />
+    <Compile Include="ScriptLines\BREAK.cs" />
+    <Compile Include="ScriptLines\CLEAR.cs" />
+    <Compile Include="ScriptLines\COLOR.cs" />
+    <Compile Include="ScriptLines\CONTINUE.cs" />
     <Compile Include="ScriptLines\FOR.cs" />
+    <Compile Include="ScriptLines\INPUT.cs" />
     <Compile Include="ScriptLines\LISTADD.cs" />
     <Compile Include="ScriptLines\EXIT.cs" />
     <Compile Include="ScriptLines\IF.cs" />
+    <Compile Include="ScriptLines\LISTCONTAIN.cs" />
     <Compile Include="ScriptLines\LISTDEL.cs" />
+    <Compile Include="ScriptLines\NOP.cs" />
     <Compile Include="ScriptLines\PRINTMULTI.cs" />
     <Compile Include="ScriptLines\PRINTVARS.cs" />
+    <Compile Include="ScriptLines\SET.cs" />
+    <Compile Include="ScriptLines\SETFLAG.cs" />
     <Compile Include="ScriptLines\SETVAR.cs" />
     <Compile Include="ScriptLines\PRINT.cs" />
     <Compile Include="ScriptLines\PRINTL.cs" />
@@ -79,13 +92,13 @@
     <Compile Include="ScriptFile.cs" />
     <Compile Include="ScriptLines\RUN.cs" />
     <Compile Include="ScriptLines\SLEEP.cs" />
+    <Compile Include="ScriptLines\SWITCH.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Command\" />
     <Folder Include="Container\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -44,7 +44,7 @@ namespace ProjectFork.ScriptLines
             while (true)
             {
                 string i = this.ScriptFile.GetLine(++e);
-                if (i == "FOREND") break;
+                if (i.ToUpper() == "ENDFOR") break;
                 _body.Add(Helper.CreateScriptLine(i, ref e, script));
             }
 
@@ -58,11 +58,21 @@ namespace ProjectFork.ScriptLines
 
                 var list = DataManager.INSTANCE.GetList(this._listname);
                 if (list == null) throw new Exceptions.RuntimeException("Cant't find List: " + this._listname);
+                bool break_token = false;
                 foreach (var i in list)
                 {
+                    if (break_token) break;
                     this.ScriptFile.SetLocalVars(this._varname, i);
-                    foreach(var i1 in this._body)
+                    foreach (var i1 in this._body)
                     {
+
+                        if (this.ScriptFile.Status == 1) break_token = true;
+
+                        if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0)
+                        {
+                            this.ScriptFile.Status = 0;
+                            break;
+                        }
                         i1.Run(console);
                     }
                 }
@@ -70,11 +80,16 @@ namespace ProjectFork.ScriptLines
             }
             if(this._mode == 1)
             {
+                bool break_token = false;
                 for(int i = this._from;i <= this._to;++i)
                 {
+                    if (break_token) break;
                     this.ScriptFile.SetLocalVars(this._varname, i.ToString());
                     foreach (var i1 in this._body)
                     {
+                        if (this.ScriptFile.Status == 1) break_token = true;
+                        if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0) break;
+
                         i1.Run(console);
                     }
                 }

@@ -25,6 +25,7 @@ namespace ProjectFork
 
             if (String.IsNullOrEmpty(command)) throw new ParserException(line, e);
             ScriptLine sl;
+            if (String.IsNullOrEmpty(command) || command[0] == ';') command = "NOP";
             switch(command)
             {
                 case "PRINT":
@@ -62,6 +63,39 @@ namespace ProjectFork
                     break;
                 case "FOR":
                     sl = new FOR();
+                    break;
+                case "SET":
+                    sl = new SET();
+                    break;
+                case "LISTCONTAIN":
+                    sl = new LISTCONTAIN();
+                    break;
+                case "COLOR":
+                    sl = new COLOR();
+                    break;
+                case "SWITCH":
+                    sl = new SWITCH();
+                    break;
+                case "BREAK":
+                    sl = new BREAK();
+                    break;
+                case "CONTINUE":
+                    sl = new CONTINUE();
+                    break;
+                case "INPUT":
+                    sl = new INPUT();
+                    break;
+                case "NOP":
+                    sl = new NOP();
+                    break;
+                case "SETFLAG":
+                    sl = new SETFLAG();
+                    break;
+                case "ADDCMD":
+                    sl = new ADDCMD();
+                    break;
+                case "CLEAR":
+                    sl = new CLEAR();
                     break;
                 default:
                     throw new ParserException(line, e);

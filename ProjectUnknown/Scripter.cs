@@ -21,6 +21,14 @@ namespace ProjectFork
             }
         }
 
+        public FConsole Console
+        {
+            get
+            {
+                return this._console;
+            }
+        }
+
         public static string Path;
 
         private static Scripter _instance;
@@ -41,17 +49,22 @@ namespace ProjectFork
         {
             DirectoryInfo di = new DirectoryInfo(this._path);
             if (!di.Exists) throw new ScriptNotFoundException(this._path);
-            foreach (var i in di.GetFiles("*.zs"))
+            List<string> scripts = new List<string>();
+
+            this.GetAllScripts(di, scripts);
+            foreach (string i in scripts)
             {
-                string path = Helper.GetRPath(i.FullName, this._path);
-                ScriptFile sf = new ScriptFile(i.FullName);
-                _filelist.Add(path, sf);
+                ScriptFile sf = new ScriptFile(this._path + i);
+                _filelist.Add(i, sf);
             }
             
         }
 
+
+
         public void Start()
         {
+            this.RunScript("Definition.zs");
             this.RunScript("Main.zs");
         }
 
@@ -66,5 +79,31 @@ namespace ProjectFork
                 throw new ScriptNotFoundException(filename);
             }
         }
+
+        public ScriptFile GetScriptFile(string filename)
+        {
+            if (_filelist.ContainsKey(filename))
+            {
+                return _filelist[filename];
+            }
+            else
+            {
+                throw new ScriptNotFoundException(filename);
+            }
+        }
+
+        private void GetAllScripts(DirectoryInfo di, List<string> scriptlist)
+        {
+            foreach (var i in di.GetFiles("*.zs"))
+            {
+                scriptlist.Add(Helper.GetRPath(i.FullName, this._path));
+            }
+
+            foreach(var i in di.GetDirectories())
+            {
+                this.GetAllScripts(i, scriptlist);
+            }
+        }
     }
+
 }

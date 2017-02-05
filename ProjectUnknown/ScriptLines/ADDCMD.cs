@@ -6,24 +6,25 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class LISTADD : Models.ScriptLine
+    class ADDCMD : Models.ScriptLine
     {
-        private string _key;
-        private string _value;
+        private string _scriptfile;
+        private string _cmd;
 
         public override void Process(string line, ref int e, ScriptFile script)
         {
             base.Process(line, ref e, script);
             string[] r = Helper.Split(line);
-            this._key = r[0];
-            this._value = r[1];
+
+            if (r[1] == "") throw new Exceptions.ParserException(line, e);
+            this._scriptfile = r[0];
+            this._cmd = r[1];
         }
 
         public override void Run(FConsole console)
         {
             base.Run(console);
-            string s = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
-            DataManager.INSTANCE.AddToList(this._key, s);
+            Commander.INSTANCE.AddCommand(this._cmd, this._scriptfile);
         }
     }
 }

@@ -34,5 +34,23 @@ namespace ProjectFork
                 return;
             }
         }
+
+        public void Clear()
+        {
+            Console.Clear();
+        }
+
+        public char ReadKey()
+        {
+            return Console.ReadKey().KeyChar;
+        }
+
+        public string ReadLine()
+        {
+            Console.Write("> ");
+            return Console.ReadLine();
+        }
+
+
     }
 }

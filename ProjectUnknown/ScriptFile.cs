@@ -30,6 +30,31 @@ namespace ProjectFork
             this._terminated = true;
         }
 
+        public bool Terminated
+        {
+            get
+            {
+                return this._terminated;
+            }
+        }
+
+        public int Status
+        {
+            get
+            {
+                return this._status;
+            }
+
+            set
+            {
+                if (value <= 2 && value >= 0)
+                    this._status = value;
+                else
+                    this._status = 0;
+            }
+        }
+
+        private int _status = 0;//0 - 正常 1 - BREAK 2 - CONTINUE
         private bool _terminated = false;
         private string _filename;
         List<ScriptLine> _script;
@@ -74,6 +99,7 @@ namespace ProjectFork
             foreach(var i in _script)
             {
                 if (this._terminated) return;
+                if (this._status != 0) throw new Exceptions.RuntimeException("Unexpected BREAK/CONTINUE");
                 i.Run(console);
             }
             this._localvars.Clear();

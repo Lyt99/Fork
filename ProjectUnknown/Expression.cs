@@ -20,11 +20,13 @@ namespace ProjectFork
             }
         }
 
+        private Random _random;
         private static Expression _instance;
         private TypeRegistry _registry;
 
         public Expression()
         {
+            this._random = new Random();
             this._registry = new TypeRegistry();
             this._registry.Add("True", true);
             this._registry.Add("False", false);
@@ -38,7 +40,7 @@ namespace ProjectFork
                 i.TypeRegistry = this._registry;
                 return i.Eval().ToString();
             }
-            catch
+            catch(Exception)
             {
                 return exp;
             }
@@ -67,6 +69,9 @@ namespace ProjectFork
                 }
             }
 
+            //随机数
+            text = text.Replace("%RANDOM%", this._random.Next(0, 100).ToString());
+
             return text;
             
         }
@@ -74,6 +79,12 @@ namespace ProjectFork
         private string FormatString(string text, string type = "VAR")
         {
             return String.Format("%{0}:{1}%", type, text);
+        }
+
+        public string RandR(string text, ScriptFile script = null)
+        {
+            string t = this.ReplaceVF(text, script);
+            return this.CalcExp(t);
         }
 
     }

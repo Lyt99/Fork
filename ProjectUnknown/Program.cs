@@ -11,10 +11,18 @@ namespace ProjectFork
         private static Scripter _scripter;
         static void Main(string[] args)
         {
-            Scripter.Path = "Script\\";
-            _scripter = Scripter.INSTANCE;
-            _scripter.Load();
-            _scripter.Start();
+            try
+            {
+                Scripter.Path = "Script\\";
+                _scripter = Scripter.INSTANCE;
+                _scripter.Load();
+                _scripter.Start();
+                Commander.INSTANCE.Start();
+            }
+            catch (ApplicationException e)
+            {
+                Scripter.INSTANCE.Console.WriteLine(e.ToString());
+            }
         }
     }
 }

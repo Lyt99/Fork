@@ -28,12 +28,12 @@ namespace ProjectFork.ScriptLines
             while (true)
             {
                 string i = script.GetLine(++e);
-                if (i == "ELSE")
+                if (i.ToUpper() == "ELSE")
                 {
                     now = this._else;
                     continue;
                 }
-                if(i == "ENDIF")
+                if(i.ToUpper() == "ENDIF")
                 {
                     break;
                 }
@@ -48,8 +48,7 @@ namespace ProjectFork.ScriptLines
         {
             this._console = console;
             base.Run(console);
-            string result = Expression.INSTANCE.ReplaceVF(this._condition);
-            result = Expression.INSTANCE.CalcExp(result);
+            string result = Expression.INSTANCE.RandR(this._condition, this.ScriptFile);
             if (result == "True")
                 this.RunBranch(this._if);
             else if (result == "False")
@@ -61,6 +60,7 @@ namespace ProjectFork.ScriptLines
         {
             foreach(ScriptLine i in script)
             {
+                if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0) break;
                 i.Run(this._console);
             }
         }

@@ -6,24 +6,19 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class LISTADD : Models.ScriptLine
+    class COLOR : Models.ScriptLine
     {
-        private string _key;
-        private string _value;
-
+        private string _color;
         public override void Process(string line, ref int e, ScriptFile script)
         {
             base.Process(line, ref e, script);
-            string[] r = Helper.Split(line);
-            this._key = r[0];
-            this._value = r[1];
+            this._color = line;
         }
 
         public override void Run(FConsole console)
         {
             base.Run(console);
-            string s = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
-            DataManager.INSTANCE.AddToList(this._key, s);
+            console.SetTextColor(this._color);
         }
     }
 }
