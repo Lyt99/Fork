@@ -37,8 +37,8 @@ namespace ProjectFork.ScriptLines
             if(r.Length == 3)
             {
                 this._mode = 1;
-                this._from = Convert.ToInt32(r[1]);
-                this._to = Convert.ToInt32(r[2]);
+                this._from = Convert.ToInt32(Expression.INSTANCE.RandR(r[1]));
+                this._to = Convert.ToInt32(Expression.INSTANCE.RandR(r[2]));
             }
 
             while (true)
