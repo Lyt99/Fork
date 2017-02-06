@@ -64,8 +64,12 @@
     <Compile Include="Enum\CommandType.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="FConsole.cs" />
+    <Compile Include="SaveManager.cs" />
+    <Compile Include="ScriptLines\LOAD.cs" />
     <Compile Include="ScriptLines\PLAYBGM.cs" />
     <Compile Include="ScriptLines\PLAYSOUND.cs" />
+    <Compile Include="ScriptLines\SAVE.cs" />
+    <Compile Include="ScriptLines\SELECT.cs" />
     <Compile Include="ScriptLines\STOPBGM.cs" />
     <Compile Include="ScriptLines\STOPSOUND.cs" />
     <Compile Include="SoundManager.cs" />

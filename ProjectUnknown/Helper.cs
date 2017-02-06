@@ -111,6 +111,15 @@ namespace ProjectFork
                 case "STOPBGM":
                     sl = new STOPBGM();
                     break;
+                case "SAVE":
+                    sl = new SAVE();
+                    break;
+                case "LOAD":
+                    sl = new LOAD();
+                    break;
+                case "SELECT":
+                    sl = new SELECT();
+                    break;
                 default:
                     throw new ParserException(line, e);
 
