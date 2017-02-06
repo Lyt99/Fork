@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +18,31 @@ namespace ProjectFork
             }
         }
 
+        public static string DictPath = "DICT\\";
+
         private static DataManager _instance;
         private Dictionary<string, string> _vars;
         private Dictionary<string, List<string>> _lists;
         private Dictionary<string, bool> _flags;
+        private Dictionary<string, string> _dict;
+        private string _dictpath;
 
         public DataManager()
         {
+            this._dictpath = DictPath;
             this._lists = new Dictionary<string, List<string>>();
             this._vars = new Dictionary<string, string>();
             this._flags = new Dictionary<string, bool>();
+            this._dict = new Dictionary<string, string>();
+        }
+
+        public void Start()
+        {
+            DirectoryInfo di = new DirectoryInfo(this._dictpath);
+            foreach(var i in di.GetFiles("*.zd"))
+            {
+                this.AddToDict(i.FullName);
+            }
         }
 
         public string GetVars(string key)
@@ -85,5 +101,19 @@ namespace ProjectFork
             return this._flags;
         }
 
+        public Dictionary<string, string> GetDictDictionary()
+        {
+            return this._dict;
+        }
+
+        private void AddToDict(string filename)
+        {
+            string[] r = File.ReadAllLines(filename);
+            foreach(string i in r)
+            {
+                string[] a = Helper.Split(i);
+                this._dict.Add(a[0], a[1]);
+            }
+        }
     }
 }

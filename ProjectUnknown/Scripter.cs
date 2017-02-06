@@ -29,7 +29,7 @@ namespace ProjectFork
             }
         }
 
-        public static string Path;
+        public static string Path = "Script\\";
 
         private static Scripter _instance;
 

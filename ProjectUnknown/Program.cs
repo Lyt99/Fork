@@ -13,9 +13,10 @@ namespace ProjectFork
         {
             try
             {
-                Scripter.Path = "Script\\";
                 _scripter = Scripter.INSTANCE;
                 _scripter.Load();
+                SoundManager.INSTANCE.Start();
+                DataManager.INSTANCE.Start();
                 _scripter.Start();
                 Commander.INSTANCE.Start();
             }

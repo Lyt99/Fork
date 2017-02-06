@@ -99,6 +99,18 @@ namespace ProjectFork
                 case "PRINTFMT":
                     sl = new PRINTFMT();
                     break;
+                case "PLAYSOUND":
+                    sl = new PLAYSOUND();
+                    break;
+                case "STOPSOUND":
+                    sl = new STOPSOUND();
+                    break;
+                case "PLAYBGM":
+                    sl = new PLAYBGM();
+                    break;
+                case "STOPBGM":
+                    sl = new STOPBGM();
+                    break;
                 default:
                     throw new ParserException(line, e);
 

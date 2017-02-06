@@ -49,7 +49,7 @@ namespace ProjectFork
 
         public string ReplaceVF(string text, ScriptFile localScript)
         {
-            string pattern = "%([A-Z]+?):(-_[0-9a-zA-Z]+?)%";
+            string pattern = "%([A-Z]+?):([-_0-9a-zA-Z]+?)%";
 
             while (true)
             {
@@ -93,6 +93,12 @@ namespace ProjectFork
                 case "VAR":
                     {
                         var i = DataManager.INSTANCE.GetVarsDictionary();
+                        return i.ContainsKey(key) ? i[key] : null;
+                    }
+
+                case "DICT":
+                    {
+                        var i = DataManager.INSTANCE.GetDictDictionary();
                         return i.ContainsKey(key) ? i[key] : null;
                     }
 
