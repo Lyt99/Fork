@@ -83,7 +83,7 @@ namespace ProjectFork
 
         public void Reload()
         {
-            this._content = File.ReadAllLines(this._filename);
+            this._content = File.ReadAllLines(this._filename, Encoding.UTF8);
 
             for(int i = 0; i < _content.Length; ++i)
             {
