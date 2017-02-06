@@ -29,7 +29,7 @@ namespace ProjectFork
 
         public DataManager()
         {
-            this._dictpath = DictPath;
+            this._dictpath = new DirectoryInfo(DictPath).FullName;
             this._lists = new Dictionary<string, List<string>>();
             this._vars = new Dictionary<string, string>();
             this._flags = new Dictionary<string, bool>();

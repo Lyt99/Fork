@@ -30,7 +30,7 @@ namespace ProjectFork
         {
             this._BGM = null;
             this._sounds = new Dictionary<string, System.Media.SoundPlayer>();
-            this._path = Path;
+            this._path = new DirectoryInfo(Path).FullName;
         }
 
         public void Start()
@@ -45,7 +45,7 @@ namespace ProjectFork
             {
                 SoundPlayer sp = new SoundPlayer(i);
                 sp.Load();
-                this._sounds.Add(i, sp);
+                this._sounds.Add(Helper.GetRPath(i, this._path), sp);
             }
         }
 
@@ -96,7 +96,7 @@ namespace ProjectFork
 
         public SoundPlayer GetSoundPlayer(string name)
         {
-            if (this._sounds.ContainsKey(name)) throw new Exceptions.ScriptNotFoundException(name);
+            if (!this._sounds.ContainsKey(name)) throw new Exceptions.ScriptNotFoundException(name);
             return this._sounds[name];
         }
 
@@ -104,7 +104,7 @@ namespace ProjectFork
         {
             foreach (var i in di.GetFiles("*.wav"))
             {
-                scriptlist.Add(Helper.GetRPath(i.FullName, this._path));
+                scriptlist.Add(i.FullName);
             }
 
             foreach (var i in di.GetDirectories())
