@@ -106,6 +106,11 @@ namespace ProjectFork
             return this._dict;
         }
 
+        public Dictionary<string, List<string>> GetListsDictionary()
+        {
+            return this._lists;
+        }
+
         private void AddToDict(string filename)
         {
             string[] r = File.ReadAllLines(filename);

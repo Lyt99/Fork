@@ -24,17 +24,24 @@ namespace ProjectFork
 
         public SaveManager()
         {
-            this._path = new DirectoryInfo(Path).FullName;
+            var di = new DirectoryInfo(Path);
+            if (!di.Exists) di.Create();
+            this._path = di.FullName;
         }
 
 
-        public void Save(string name)//保存VARS和FLAGS
+        public void Save(string name)//保存VARS FLAGS LIST
         {
             var vars = DataManager.INSTANCE.GetVarsDictionary();
-            var flags = DataManager.INSTANCE.GetDictDictionary();
+            var flags = DataManager.INSTANCE.GetFlagsDictionary();
+            var lists = DataManager.INSTANCE.GetListsDictionary();
 
-            StreamWriter sw = new StreamWriter(this._path + name);
+
+
+            FileStream fs = new FileStream(this._path + name, FileMode.OpenOrCreate);
+            StreamWriter sw = new StreamWriter(fs);
             sw.WriteLine("VARS");
+            
             foreach (var i in vars)
             {
                 string s = String.Format("{0} {1}", i.Key, i.Value);
@@ -42,24 +49,39 @@ namespace ProjectFork
             }
 
             sw.WriteLine("FLAGS");
-            foreach (var i in vars)
+            foreach (var i in flags)
             {
                 string s = String.Format("{0} {1}", i.Key, i.Value);
                 sw.WriteLine(s);
             }
+
+            sw.WriteLine("LISTS");
+            foreach (var i in lists)
+            {
+                foreach(var i1 in i.Value)
+                {
+                    string s = String.Format("{0} {1}", i.Key, i1);
+                    sw.WriteLine(s);
+                }
+
+            }
+
+            sw.Close();
+            fs.Close();
         }
 
         public void Load(string name)
         {
             DataManager.INSTANCE.GetVarsDictionary().Clear();
             DataManager.INSTANCE.GetFlagsDictionary().Clear();
+            DataManager.INSTANCE.GetListsDictionary().Clear();
+
             StreamReader sw = new StreamReader(this._path + name);
 
             object dict = null;
             string s;
             while ((s = sw.ReadLine()) != null)
             {
-                if (dict == null) continue;
                 if (s == null) break;
 
                 if (s == "VARS")
@@ -74,11 +96,21 @@ namespace ProjectFork
                     continue;
                 }
 
+                if(s == "LISTS")
+                {
+                    dict = DataManager.INSTANCE.GetListsDictionary();
+                    continue;
+                }
+
+                if (dict == null) throw new Exceptions.RuntimeException("Save file " + name + " can't be loaded.");
+
                 string[] r = Helper.Split(s);
                 if (dict is Dictionary<string, string>) ((Dictionary<string, string>)dict).Add(r[0], r[1]);
                 if (dict is Dictionary<string, bool>) ((Dictionary<string, bool>)dict).Add(r[0], r[1] == "True" ? true : false);
+                if (dict is Dictionary<string, List<string>>) DataManager.INSTANCE.AddToList(r[0], r[1]);
 
             }
+            sw.Close();
         }
 
 
@@ -86,7 +118,8 @@ namespace ProjectFork
         {
             Scripter.INSTANCE.Console.Write("Please input a name：");
             string name = Scripter.INSTANCE.Console.ReadLine();
-            this.Save(name);
+            this.Save(name + ".sav");
+            Scripter.INSTANCE.Console.WriteLine("Save succeed.");
         }
 
         public void DoLoad()
@@ -105,6 +138,7 @@ namespace ProjectFork
             for(int i = 0;i < count; ++i)
             {
                 string s = String.Format("[{0}]{1} {2}", i, list[i].Name, list[i].LastWriteTime.ToString());
+                console.WriteLine(s);
             }
 
             while (true) {
@@ -112,8 +146,10 @@ namespace ProjectFork
                 {
                     int selection = Convert.ToInt32(console.ReadLine());
                     this.Load(list[selection].Name);
+                    console.WriteLine("Load successful.");
+                    break;
                 }
-                catch
+                catch(Exception e)
                 {
                     console.WriteLine("Invaild selection.");
                 }

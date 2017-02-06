@@ -11,8 +11,5 @@ PRINTL
 PRINTVARS %DICT:MESSAGE1%
 PRINTL
 PLAYBGM bgm.wav
-PRINTL 请选择<Y/N>
-SELECT selection Y,N
-
-PRINTVARS 你选择的是: %LOCAL:selection%
-PRINTL
+LOAD
+PRINTVARS 程序版本: %VAR:version%
