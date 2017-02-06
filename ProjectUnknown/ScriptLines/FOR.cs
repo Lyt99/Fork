@@ -65,7 +65,7 @@ namespace ProjectFork.ScriptLines
                     this.ScriptFile.SetLocalVars(this._varname, i);
                     foreach (var i1 in this._body)
                     {
-
+                        i1.Run(console);
                         if (this.ScriptFile.Status == 1) break_token = true;
 
                         if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0)
@@ -73,7 +73,6 @@ namespace ProjectFork.ScriptLines
                             this.ScriptFile.Status = 0;
                             break;
                         }
-                        i1.Run(console);
                     }
                 }
                 return;
@@ -89,10 +88,15 @@ namespace ProjectFork.ScriptLines
                     this.ScriptFile.SetLocalVars(this._varname, i.ToString());
                     foreach (var i1 in this._body)
                     {
-                        if (this.ScriptFile.Status == 1) break_token = true;
-                        if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0) break;
-
                         i1.Run(console);
+
+                        if (this.ScriptFile.Status == 1) break_token = true;
+
+                        if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0)
+                        {
+                            this.ScriptFile.Status = 0;
+                            break;
+                        }
                     }
                 }
             }
