@@ -61,7 +61,7 @@ namespace ProjectFork
             var command = this._commandList[cmd];
             var scriptfile = Scripter.INSTANCE.GetScriptFile(command.script);
 
-            string[] wa = r[1].Split(' ');
+            string[] wa = r[1].TrimEnd().Split(' ');
             if (wa.Length != command.pars.Count && !(wa.Length == 1 && String.IsNullOrEmpty(wa[0]) && command.pars.Count == 0)) throw new Exceptions.CommandException("Paraments Wrong");
             foreach(var par in command.pars)
             {

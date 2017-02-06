@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExpressionEvaluator;
 using Antlr.Runtime;
+using System.Text.RegularExpressions;
 
 namespace ProjectFork
 {
@@ -85,6 +86,11 @@ namespace ProjectFork
         {
             string t = this.ReplaceVF(text, script);
             return this.CalcExp(t);
+        }
+
+        public string UnescapeCodes(string src)
+        {
+            return Regex.Unescape(src);
         }
 
     }

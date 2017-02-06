@@ -8,18 +8,21 @@ namespace ProjectFork
 {
     class FConsole
     {
+        private bool newline;
         public FConsole()
         {
-
+            this.newline = true;
         }
 
         public void WriteLine(string text)
         {
+            this.newline = true;
             Console.WriteLine(text);
         }
 
         public void Write(string text)
         {
+            this.newline = false;
             Console.Write(text);
         }
 
@@ -47,7 +50,8 @@ namespace ProjectFork
 
         public string ReadLine()
         {
-            Console.Write("> ");
+            if(this.newline)
+                Console.Write("> ");
             return Console.ReadLine();
         }
 

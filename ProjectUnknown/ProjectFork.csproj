@@ -78,6 +78,7 @@
     <Compile Include="ScriptLines\LISTCONTAIN.cs" />
     <Compile Include="ScriptLines\LISTDEL.cs" />
     <Compile Include="ScriptLines\NOP.cs" />
+    <Compile Include="ScriptLines\PRINTFMT.cs" />
     <Compile Include="ScriptLines\PRINTMULTI.cs" />
     <Compile Include="ScriptLines\PRINTVARS.cs" />
     <Compile Include="ScriptLines\SET.cs" />

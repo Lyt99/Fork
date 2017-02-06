@@ -15,8 +15,8 @@ namespace ProjectFork.ScriptLines
         private int _mode = 0;//0-List 1-Range
         private List<ScriptLine> _body;
 
-        private int _from;
-        private int _to;
+        private string _from;
+        private string _to;
         
         public FOR()
         {
@@ -37,8 +37,8 @@ namespace ProjectFork.ScriptLines
             if(r.Length == 3)
             {
                 this._mode = 1;
-                this._from = Convert.ToInt32(Expression.INSTANCE.RandR(r[1]));
-                this._to = Convert.ToInt32(Expression.INSTANCE.RandR(r[2]));
+                this._from = r[1];
+                this._to = r[2];
             }
 
             while (true)
@@ -81,7 +81,9 @@ namespace ProjectFork.ScriptLines
             if(this._mode == 1)
             {
                 bool break_token = false;
-                for(int i = this._from;i <= this._to;++i)
+                int from = Convert.ToInt32(Expression.INSTANCE.RandR(this._from, this.ScriptFile));
+                int to = Convert.ToInt32(Expression.INSTANCE.RandR(this._to, this.ScriptFile));
+                for(int i = from;i <= to;++i)
                 {
                     if (break_token) break;
                     this.ScriptFile.SetLocalVars(this._varname, i.ToString());

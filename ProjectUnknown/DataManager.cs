@@ -36,7 +36,10 @@ namespace ProjectFork
 
         public List<string> GetList(string key)
         {
-            return _lists.ContainsKey(key) ? _lists[key] : null;
+            if (!_lists.ContainsKey(key))
+                _lists.Add(key, new List<string>());
+            return _lists[key];
+
         }
 
         public void SetVars(string key, string value)

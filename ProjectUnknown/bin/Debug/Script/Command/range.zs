@@ -1,0 +1,6 @@
+COLOR Yellow
+FOR i %LOCAL:from% %LOCAL:to%
+	PRINTVARS %LOCAL:i% 
+ENDFOR
+PRINTL
+COLOR Gray

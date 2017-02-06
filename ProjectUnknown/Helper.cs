@@ -23,9 +23,8 @@ namespace ProjectFork
                 c = line.Substring(pos + 1);
             }
 
-            if (String.IsNullOrEmpty(command)) throw new ParserException(line, e);
+            if (String.IsNullOrEmpty(command) || line[0] == ';') command = "NOP";
             ScriptLine sl;
-            if (String.IsNullOrEmpty(command) || command[0] == ';') command = "NOP";
             switch(command)
             {
                 case "PRINT":
@@ -96,6 +95,9 @@ namespace ProjectFork
                     break;
                 case "CLEAR":
                     sl = new CLEAR();
+                    break;
+                case "PRINTFMT":
+                    sl = new PRINTFMT();
                     break;
                 default:
                     throw new ParserException(line, e);

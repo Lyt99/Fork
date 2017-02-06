@@ -1,0 +1,45 @@
+COLOR Green
+PRINTL 喵！
+COLOR Gray
+COLOR Yellow
+PRINTL ಠ౪ಠ 你是谁？
+COLOR Gray
+INPUT name
+COLOR Green
+PRINT Meow > (┐「ε:) 哇，原来是
+PRINTVARS %LOCAL:name%
+PRINTL 啊，幸会幸会！
+COLOR Gray
+SLEEP 0.1
+COLOR Green
+PRINT Meow > 嗯
+SLEEP 0.1
+PRINT .
+SLEEP 0.1
+PRINT .
+SLEEP 0.1
+PRINTL .
+SLEEP 1
+PRINTVARS %LOCAL:name%
+PRINTL 你找我有什么事儿吗？
+PRINTFMT 1.没什么事儿 \t 2.我想学习膜法
+PRINTL
+PRINTFMT 3.我昨晚吃多了 \t 4.你知道山东省实验中学怎么走吗
+PRINTL
+COLOR Gray
+PRINTVARS %LOCAL:name%>
+INPUT event
+COLOR Green
+SWITCH %LOCAL:event%
+CASE 1
+PRINTL 哦，再见！
+CASE 2
+PRINTL 哦，再见！
+CASE 3
+PRINTL 哦，再见！
+CASE 4
+PRINTL 哦，再见！
+DEFAULT
+PRINTL wwwwwwwwa
+ENDSWITCH
+COLOR Gray
