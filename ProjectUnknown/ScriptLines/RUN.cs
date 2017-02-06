@@ -18,7 +18,8 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            Scripter.INSTANCE.RunScript(this._script);
+            string s = Expression.INSTANCE.ReplaceVF(this._script, this.ScriptFile);
+            Scripter.INSTANCE.RunScript(s);
         }
     }
 }

@@ -47,9 +47,9 @@ namespace ProjectFork
             }
         }
 
-        public string ReplaceVF(string text, ScriptFile localScript = null)
+        public string ReplaceVF(string text, ScriptFile localScript)
         {
-            string pattern = "%([A-Z]+?):([0-9a-zA-Z]+?)%";
+            string pattern = "%([A-Z]+?):(-_[0-9a-zA-Z]+?)%";
 
             while (true)
             {
@@ -100,12 +100,8 @@ namespace ProjectFork
                     return null;
             }
         }
-        private string FormatString(string text, string type = "VAR")
-        {
-            return String.Format("%{0}:{1}%", type, text);
-        }
 
-        public string RandR(string text, ScriptFile script = null)
+        public string RandR(string text, ScriptFile script)
         {
             string t = this.ReplaceVF(text, script);
             return this.CalcExp(t);

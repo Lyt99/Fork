@@ -9,13 +9,13 @@ namespace ProjectFork.ScriptLines
 {
     class SLEEP : Models.ScriptLine
     {
-        private int _sleeptime;
+        private string _sleeptime;
         public override void Process(string line, ref int e, ScriptFile script)
         {
             base.Process(line, ref e, script);
             try
             {
-                _sleeptime = (int)(Convert.ToDouble(line) * 1000.0);
+                _sleeptime = line;
             }
             catch(FormatException)
             {
@@ -27,7 +27,17 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            Thread.Sleep(_sleeptime);
+            string result = Expression.INSTANCE.RandR(this._sleeptime, this.ScriptFile);
+            try
+            {
+                int time = (int)(Convert.ToDouble(result) * 1000);
+                Thread.Sleep(time);
+            }
+            catch
+            {
+                throw new Exceptions.RuntimeException("Can't parse: " + result);
+            }
+
         }
     }
 }

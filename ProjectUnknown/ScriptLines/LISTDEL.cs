@@ -23,7 +23,9 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            DataManager.INSTANCE.DelFromList(this._key, this._value);
+            string k = Expression.INSTANCE.ReplaceVF(this._key, this.ScriptFile);
+            string l = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
+            DataManager.INSTANCE.DelFromList(k, l);
         }
     }
 }

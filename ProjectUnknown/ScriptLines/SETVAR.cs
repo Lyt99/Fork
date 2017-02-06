@@ -23,8 +23,7 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            string r = Expression.INSTANCE.ReplaceVF(this._value);
-            r = Expression.INSTANCE.CalcExp(r);
+            string r = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
             DataManager.INSTANCE.SetVars(this._key, r);
         }
     }

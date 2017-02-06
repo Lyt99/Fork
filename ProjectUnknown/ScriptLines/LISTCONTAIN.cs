@@ -26,11 +26,14 @@ namespace ProjectFork.ScriptLines
 
         public override void Run(FConsole console)
         {
+            string k = Expression.INSTANCE.ReplaceVF(this._key, this.ScriptFile);
+            string l = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
+            string f = Expression.INSTANCE.ReplaceVF(this._flagname, this.ScriptFile);
             base.Run(console);
-            if (DataManager.INSTANCE.GetList(this._key).Contains(this._value))
-                DataManager.INSTANCE.SetFlag(this._flagname, true);
+            if (DataManager.INSTANCE.GetList(k).Contains(l))
+                DataManager.INSTANCE.SetFlag(f, true);
             else
-                DataManager.INSTANCE.SetFlag(this._flagname, false);
+                DataManager.INSTANCE.SetFlag(f, false);
         }
     }
 }

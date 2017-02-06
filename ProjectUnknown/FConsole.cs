@@ -12,7 +12,8 @@ namespace ProjectFork
         public FConsole()
         {
             //顺便说一下，Windows自带的cmd无法显示像 “ಠ౪ಠ” 一类的字符。为了获得良好的用户体验，我选择 Cmder
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            //有问题，还是注释掉吧
+            //Console.OutputEncoding = System.Text.Encoding.UTF8;
             this.newline = true;
         }
 

@@ -24,14 +24,15 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
+            string k = Expression.INSTANCE.ReplaceVF(this._key, this.ScriptFile);
             string s = Expression.INSTANCE.RandR(this._exp, this.ScriptFile);
             if(s == "True")
             {
-                DataManager.INSTANCE.SetFlag(this._key, true);
+                DataManager.INSTANCE.SetFlag(k, true);
             }
             else if(s == "False")
             {
-                DataManager.INSTANCE.SetFlag(this._key, false);
+                DataManager.INSTANCE.SetFlag(k, false);
             }
             else
             {
