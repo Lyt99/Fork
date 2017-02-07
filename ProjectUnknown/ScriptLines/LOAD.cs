@@ -24,7 +24,7 @@ namespace ProjectFork.ScriptLines
             else
             {
                 string s = Expression.INSTANCE.ReplaceVF(this._loadname, this.ScriptFile);
-                r = SaveManager.INSTANCE.Save(s + ".sav");
+                r = SaveManager.INSTANCE.Load(s + ".sav");
             }
 
             DataManager.INSTANCE.SetFlag("SAVE_SUCCESS", r);
