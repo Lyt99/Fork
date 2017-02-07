@@ -49,7 +49,7 @@ namespace ProjectFork.ScriptLines
                 }
                 else
                 {
-                    throw new Exceptions.ParserException(i, e);
+                    throw new Exceptions.ParserException(i, e, script);
                 }
 
             }

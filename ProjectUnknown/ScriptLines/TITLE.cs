@@ -6,26 +6,20 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class SAVE : Models.ScriptLine
+    class TITLE : Models.ScriptLine
     {
-        private string _savename;
-
+        public string _title;
         public override void Process(string line, ref int e, ScriptFile script)
         {
             base.Process(line, ref e, script);
-            this._savename = line;
+            this._title = line;
         }
 
         public override void Run(FConsole console)
         {
             base.Run(console);
-            if(String.IsNullOrEmpty(this._savename))
-                SaveManager.INSTANCE.DoSave();
-            else
-            {
-                string s = Expression.INSTANCE.ReplaceVF(this._savename, this.ScriptFile);
-                SaveManager.INSTANCE.Save(this._savename + ".sav");
-            }
+            string t = Expression.INSTANCE.ReplaceVF(this._title, this.ScriptFile);
+            console.setTitle(t);
         }
     }
 }

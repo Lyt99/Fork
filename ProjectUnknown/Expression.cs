@@ -49,7 +49,7 @@ namespace ProjectFork
 
         public string ReplaceVF(string text, ScriptFile localScript)
         {
-            string pattern = "%([A-Z]+?):([-_0-9a-zA-Z]+?)%";
+            string pattern = "{([A-Z]+?):([.-_0-9a-zA-Z]+?)}";
 
             while (true)
             {
@@ -65,8 +65,9 @@ namespace ProjectFork
                 }
             }
 
-            //随机数
-            text = text.Replace("%RANDOM%", this._random.Next(0, 100).ToString());
+            //特殊变量
+            text = text.Replace("{RAND}", this._random.Next(0, 100).ToString());
+            text = text.Replace("{TIME}", Helper.GetTime().ToString());
 
             return text;
             

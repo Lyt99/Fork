@@ -15,7 +15,7 @@ namespace ProjectFork.ScriptLines
         {
             base.Process(line, ref e, script);
             var r = Helper.Split(line);
-            if (String.IsNullOrEmpty(r[0]) || String.IsNullOrEmpty(r[1])) throw new Exceptions.ParserException(line, e);
+            if (String.IsNullOrEmpty(r[0]) || String.IsNullOrEmpty(r[1])) throw new Exceptions.ParserException(line, e, script);
             this._key = r[0];
             this._value = r[1];
         }

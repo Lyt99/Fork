@@ -27,7 +27,7 @@ namespace ProjectFork.ScriptLines
         {
             base.Process(line, ref e, script);
             string[] r = line.Split(' ');
-            if (r.Length <= 1 || r.Length >= 4) throw new Exceptions.ParserException(line, e);
+            if (r.Length <= 1 || r.Length >= 4) throw new Exceptions.ParserException(line, e, script);
             this._varname = r[0];
             if (r.Length == 2)
             {
@@ -55,13 +55,13 @@ namespace ProjectFork.ScriptLines
             base.Run(console);
             if(this._mode == 0)
             {
-
-                var list = DataManager.INSTANCE.GetList(this._listname);
+                string listname = Expression.INSTANCE.ReplaceVF(this._listname, this.ScriptFile);
+                var list = DataManager.INSTANCE.GetList(listname);
                 if (list == null) throw new Exceptions.RuntimeException("Cant't find List: " + this._listname);
                 bool break_token = false;
                 foreach (var i in list)
                 {
-                    if (break_token) break;
+                    if (this.ScriptFile.Terminated || break_token) break;
                     this.ScriptFile.SetLocalVars(this._varname, i);
                     foreach (var i1 in this._body)
                     {
@@ -84,7 +84,7 @@ namespace ProjectFork.ScriptLines
                 int to = Convert.ToInt32(Expression.INSTANCE.RandR(this._to, this.ScriptFile));
                 for(int i = from;i <= to;++i)
                 {
-                    if (break_token) break;
+                    if (this.ScriptFile.Terminated  || break_token) break;
                     this.ScriptFile.SetLocalVars(this._varname, i.ToString());
                     foreach (var i1 in this._body)
                     {

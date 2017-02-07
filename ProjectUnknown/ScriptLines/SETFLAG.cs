@@ -16,7 +16,7 @@ namespace ProjectFork.ScriptLines
             base.Process(line, ref e, script);
             string[] r = line.Split(' ');
 
-            if (r.Length != 2) throw new Exceptions.ParserException(line, e);
+            if (r.Length != 2) throw new Exceptions.ParserException(line, e, script);
             this._key = r[0];
             this._exp = r[1];
         }

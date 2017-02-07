@@ -1,3 +1,7 @@
+TITLE Fork游戏引擎Demo{VAR:version}
+CLEAR
+PRINTX 0.5 欢迎使用Fork引擎！
+PRINTL
 PRINTMULTI
 ==============================================================
 			欢迎使用Fork引擎！
@@ -6,7 +10,7 @@ PRINTMULTI
 	  下方输入 Meow/喵呜 命令来尝试一下ಠ౪ಠ
 ==============================================================
 ENDPRINTMULTI
-PRINTVARS 程序版本: %VAR:version%
+PRINTVARS 程序版本: {VAR:version}
 PRINTL
-PRINTVARS %DICT:MESSAGE1%
+PRINTVARS {DICT:MESSAGE1}
 PRINTL

@@ -71,12 +71,12 @@ namespace ProjectFork
         }
 
 
-        public string GetLine(int i, bool trimIndent = true)
+        public string GetLine(int i, bool trim = true)
         {
             if (this._content == null || i < 0 || this._content.Length <= i) return String.Empty;
 
-            if (trimIndent)
-                return Helper.TrimIndent(this._content[i]);
+            if (trim)
+                return Helper.Trim(this._content[i]);
             else
                 return this._content[i];
         }

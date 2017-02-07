@@ -58,6 +58,10 @@ namespace ProjectFork
             return Console.ReadLine();
         }
 
+        public void setTitle(string title)
+        {
+            Console.Title = title;
+        }
 
     }
 }

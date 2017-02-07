@@ -39,6 +39,7 @@ namespace ProjectFork
         public void Start()
         {
             DirectoryInfo di = new DirectoryInfo(this._dictpath);
+            if (!di.Exists) di.Create();
             foreach(var i in di.GetFiles("*.zd"))
             {
                 this.AddToDict(i.FullName);

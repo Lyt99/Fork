@@ -36,7 +36,7 @@ namespace ProjectFork
         public void Start()
         {
             DirectoryInfo di = new DirectoryInfo(this._path);
-            if (!di.Exists) throw new Exceptions.ScriptNotFoundException(di.FullName);
+            if (!di.Exists) di.Create();
 
             List<string> sounds = new List<string>();
             GetAllSounds(di, sounds);

@@ -21,10 +21,10 @@ namespace ProjectFork.ScriptLines
             while (true)
             {
                 string i = script.GetLine(++e, false);
-                if (Helper.TrimIndent(i) == "ENDPRINTMULTI") break;
+                if (Helper.Trim(i) == "ENDPRINTMULTI") break;
                 _text.Add(i);
 
-                if (e > script.Line) throw new Exceptions.ParserException(line, this.Line); 
+                if (e > script.Line) throw new Exceptions.ParserException(line, this.Line, script); 
             }
         }
 

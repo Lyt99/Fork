@@ -19,7 +19,7 @@ namespace ProjectFork.ScriptLines
             }
             catch(FormatException)
             {
-                throw new Exceptions.ParserException(line, e);
+                throw new Exceptions.ParserException(line, e, script);
             }
             
         }

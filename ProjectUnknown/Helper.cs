@@ -120,8 +120,14 @@ namespace ProjectFork
                 case "SELECT":
                     sl = new SELECT();
                     break;
+                case "TITLE":
+                    sl = new TITLE();
+                    break;
+                case "PRINTX":
+                    sl = new PRINTX();
+                    break;
                 default:
-                    throw new ParserException(line, e);
+                    throw new ParserException(line, e, script);
 
             }
 
@@ -151,9 +157,9 @@ namespace ProjectFork
             return (i + 1) / 4;
         }
 
-        public static string TrimIndent(string text)
+        public static string Trim(string text)
         {
-            return text.TrimStart(' ', '\t');
+            return text.TrimStart(' ', '\t').TrimEnd();
         }
 
         public static string[] Split(string text)
@@ -161,6 +167,11 @@ namespace ProjectFork
             int i = text.IndexOf(' ');
             if (i == -1) return new string[] { text, String.Empty };
             return new string[]{text.Substring(0, i), text.Substring(i + 1)};
+        }
+
+        public static long GetTime()
+        {
+            return Convert.ToInt64(((TimeSpan)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0))).TotalSeconds);
         }
     }
 }

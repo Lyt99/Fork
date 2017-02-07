@@ -8,6 +8,6 @@ namespace ProjectFork.Exceptions
 {
     class ParserException : ApplicationException
     {
-        public ParserException(string line, int n) : base("Can't parse:" + line + " at line " + (n + 1) + ".") { }
+        public ParserException(string line, int n, ScriptFile file) : base("Can't parse:" + line + " at line " + (n + 1) + ((file == null) ? "." : (" " + file.FileName + "."))) { }
     }
 }

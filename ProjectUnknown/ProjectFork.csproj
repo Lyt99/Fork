@@ -68,10 +68,12 @@
     <Compile Include="ScriptLines\LOAD.cs" />
     <Compile Include="ScriptLines\PLAYBGM.cs" />
     <Compile Include="ScriptLines\PLAYSOUND.cs" />
+    <Compile Include="ScriptLines\PRINTX.cs" />
     <Compile Include="ScriptLines\SAVE.cs" />
     <Compile Include="ScriptLines\SELECT.cs" />
     <Compile Include="ScriptLines\STOPBGM.cs" />
     <Compile Include="ScriptLines\STOPSOUND.cs" />
+    <Compile Include="ScriptLines\TITLE.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="Models\Command.cs" />
     <Compile Include="ScriptLines\ADDCMD.cs" />

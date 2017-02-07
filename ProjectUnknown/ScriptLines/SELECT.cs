@@ -14,7 +14,7 @@ namespace ProjectFork.ScriptLines
         {
             base.Process(line, ref e, script);
             string[] i = line.Split(' ');
-            if (i.Length != 2) throw new Exceptions.ParserException(line, e);
+            if (i.Length != 2) throw new Exceptions.ParserException(line, e, script);
 
             this._var = i[0];
             string[] selection = i[1].Split(',');

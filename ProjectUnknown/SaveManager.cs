@@ -149,7 +149,7 @@ namespace ProjectFork
                     console.WriteLine("Load successful.");
                     break;
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                     console.WriteLine("Invaild selection.");
                 }
