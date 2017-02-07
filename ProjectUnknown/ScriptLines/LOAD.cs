@@ -18,13 +18,16 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
+            bool r = true;
             if(String.IsNullOrEmpty(this._loadname))
-                SaveManager.INSTANCE.DoLoad();
+                r = SaveManager.INSTANCE.DoLoad();
             else
             {
                 string s = Expression.INSTANCE.ReplaceVF(this._loadname, this.ScriptFile);
-                SaveManager.INSTANCE.Save(s + ".sav");
+                r = SaveManager.INSTANCE.Save(s + ".sav");
             }
+
+            DataManager.INSTANCE.SetFlag("SAVE_SUCCESS", r);
         }
     }
 }

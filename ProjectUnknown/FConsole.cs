@@ -63,5 +63,10 @@ namespace ProjectFork
             Console.Title = title;
         }
 
+        public string GetColor()
+        {
+            return Console.ForegroundColor.ToString();
+        }
+
     }
 }

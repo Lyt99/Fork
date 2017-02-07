@@ -70,47 +70,55 @@ namespace ProjectFork
             fs.Close();
         }
 
-        public void Load(string name)
-        {
-            DataManager.INSTANCE.GetVarsDictionary().Clear();
-            DataManager.INSTANCE.GetFlagsDictionary().Clear();
-            DataManager.INSTANCE.GetListsDictionary().Clear();
+        public bool Load(string name) {
 
-            StreamReader sw = new StreamReader(this._path + name);
-
-            object dict = null;
-            string s;
-            while ((s = sw.ReadLine()) != null)
+            try
             {
-                if (s == null) break;
+                DataManager.INSTANCE.GetVarsDictionary().Clear();
+                DataManager.INSTANCE.GetFlagsDictionary().Clear();
+                DataManager.INSTANCE.GetListsDictionary().Clear();
 
-                if (s == "VARS")
+                StreamReader sw = new StreamReader(this._path + name);
+
+                object dict = null;
+                string s;
+                while ((s = sw.ReadLine()) != null)
                 {
-                    dict = DataManager.INSTANCE.GetVarsDictionary();
-                    continue;
+                    if (s == null) break;
+
+                    if (s == "VARS")
+                    {
+                        dict = DataManager.INSTANCE.GetVarsDictionary();
+                        continue;
+                    }
+
+                    if (s == "FLAGS")
+                    {
+                        dict = DataManager.INSTANCE.GetFlagsDictionary();
+                        continue;
+                    }
+
+                    if (s == "LISTS")
+                    {
+                        dict = DataManager.INSTANCE.GetListsDictionary();
+                        continue;
+                    }
+
+                    if (dict == null) throw new Exceptions.RuntimeException("Save file " + name + " can't be loaded.");
+
+                    string[] r = Helper.Split(s);
+                    if (dict is Dictionary<string, string>) ((Dictionary<string, string>)dict).Add(r[0], r[1]);
+                    if (dict is Dictionary<string, bool>) ((Dictionary<string, bool>)dict).Add(r[0], r[1] == "True" ? true : false);
+                    if (dict is Dictionary<string, List<string>>) DataManager.INSTANCE.AddToList(r[0], r[1]);
+
                 }
-
-                if (s == "FLAGS")
-                {
-                    dict = DataManager.INSTANCE.GetFlagsDictionary();
-                    continue;
-                }
-
-                if(s == "LISTS")
-                {
-                    dict = DataManager.INSTANCE.GetListsDictionary();
-                    continue;
-                }
-
-                if (dict == null) throw new Exceptions.RuntimeException("Save file " + name + " can't be loaded.");
-
-                string[] r = Helper.Split(s);
-                if (dict is Dictionary<string, string>) ((Dictionary<string, string>)dict).Add(r[0], r[1]);
-                if (dict is Dictionary<string, bool>) ((Dictionary<string, bool>)dict).Add(r[0], r[1] == "True" ? true : false);
-                if (dict is Dictionary<string, List<string>>) DataManager.INSTANCE.AddToList(r[0], r[1]);
-
+                sw.Close();
+                return true;
             }
-            sw.Close();
+            catch
+            {
+                return false;
+            }
         }
 
 
@@ -122,7 +130,7 @@ namespace ProjectFork
             Scripter.INSTANCE.Console.WriteLine("Save succeed.");
         }
 
-        public void DoLoad()
+        public bool DoLoad()
         {
             FConsole console = Scripter.INSTANCE.Console;
             DirectoryInfo di = new DirectoryInfo(this._path);
@@ -131,7 +139,7 @@ namespace ProjectFork
             if (count == 0)
             {
                 console.WriteLine("No save data.");
-                return;
+                return false;
             }
 
             console.WriteLine("Please select:");
@@ -147,11 +155,12 @@ namespace ProjectFork
                     int selection = Convert.ToInt32(console.ReadLine());
                     this.Load(list[selection].Name);
                     console.WriteLine("Load successful.");
-                    break;
+                    return true;
                 }
                 catch(Exception)
                 {
                     console.WriteLine("Invaild selection.");
+                    return false;
                 }
                 }
 

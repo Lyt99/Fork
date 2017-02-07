@@ -65,6 +65,7 @@
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="FConsole.cs" />
     <Compile Include="SaveManager.cs" />
+    <Compile Include="ScriptLines\PRINTC.cs" />
     <Compile Include="ScriptLines\LOAD.cs" />
     <Compile Include="ScriptLines\PLAYBGM.cs" />
     <Compile Include="ScriptLines\PLAYSOUND.cs" />

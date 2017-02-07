@@ -126,6 +126,9 @@ namespace ProjectFork
                 case "PRINTX":
                     sl = new PRINTX();
                     break;
+                case "PRINTC":
+                    sl = new PRINTC();
+                    break;
                 default:
                     throw new ParserException(line, e, script);
 
