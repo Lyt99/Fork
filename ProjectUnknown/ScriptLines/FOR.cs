@@ -23,9 +23,9 @@ namespace ProjectFork.ScriptLines
             this._body = new List<ScriptLine>();
         }
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             string[] r = line.Split(' ');
             if (r.Length <= 1 || r.Length >= 4) throw new Exceptions.ParserException(line, e, script);
             this._varname = r[0];
@@ -45,7 +45,7 @@ namespace ProjectFork.ScriptLines
             {
                 string i = this.ScriptFile.GetLine(++e);
                 if (i.ToUpper() == "ENDFOR") break;
-                _body.Add(Helper.CreateScriptLine(i, ref e, script));
+                _body.Add(Helper.CreateScriptLine(i, ref e, script, this));
             }
 
         }
@@ -65,14 +65,8 @@ namespace ProjectFork.ScriptLines
                     this.ScriptFile.SetLocalVars(this._varname, i);
                     foreach (var i1 in this._body)
                     {
-                        i1.Run(console);
-                        if (this.ScriptFile.Status == 1) break_token = true;
-
-                        if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0)
-                        {
-                            this.ScriptFile.Status = 0;
-                            break;
-                        }
+                        Scripter.INSTANCE.RunScript(this._body, this, console);
+                        if (this.GetStatus() == 1) break;
                     }
                 }
                 return;
@@ -90,11 +84,14 @@ namespace ProjectFork.ScriptLines
                     {
                         i1.Run(console);
 
-                        if (this.ScriptFile.Status == 1) break_token = true;
-
-                        if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0)
+                        if (this.GetStatus() == 1)
                         {
-                            this.ScriptFile.Status = 0;
+                            break_token = true;
+                        }
+
+                        if (this.ScriptFile.Terminated || this.GetStatus() != 0)
+                        {
+                            this.SetStatus(0);
                             break;
                         }
                     }

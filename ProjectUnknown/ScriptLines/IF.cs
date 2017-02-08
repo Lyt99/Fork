@@ -8,29 +8,28 @@ namespace ProjectFork.ScriptLines
 {
     class IF : Models.ScriptLine
     {
-        private List<ScriptLine> _if;
-        private List<ScriptLine> _else;
-        private FConsole _console;
+        private List<ScriptLine> _true;
+        private List<ScriptLine> _false;
         private string _condition;
 
         public IF()
         {
-            this._if = new List<ScriptLine>();
-            this._else = new List<ScriptLine>();
+            this._true = new List<ScriptLine>();
+            this._false = new List<ScriptLine>();
         }
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             this._condition = line;
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
 
-            List<ScriptLine> now = this._if;
+            List<ScriptLine> now = this._true;
             while (true)
             {
                 string i = script.GetLine(++e);
                 if (i.ToUpper() == "ELSE")
                 {
-                    now = this._else;
+                    now = this._false;
                     continue;
                 }
                 if(i.ToUpper() == "ENDIF")
@@ -38,7 +37,7 @@ namespace ProjectFork.ScriptLines
                     break;
                 }
 
-                now.Add(Helper.CreateScriptLine(i, ref e, script));
+                now.Add(Helper.CreateScriptLine(i, ref e, script, this));
                 
             }
 
@@ -46,23 +45,14 @@ namespace ProjectFork.ScriptLines
 
         public override void Run(FConsole console)
         {
-            this._console = console;
             base.Run(console);
             string result = Expression.INSTANCE.RandR(this._condition, this.ScriptFile);
             if (result == "True")
-                this.RunBranch(this._if);
+                Scripter.INSTANCE.RunScript(this._true, this, console);
             else if (result == "False")
-                this.RunBranch(this._else);
+                Scripter.INSTANCE.RunScript(this._false, this, console);
             else throw new Exceptions.RuntimeException(result + " is not a Boolean value");
         }
 
-        private void RunBranch(List<ScriptLine> script)
-        {
-            foreach(ScriptLine i in script)
-            {
-                if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0) break;
-                i.Run(this._console);
-            }
-        }
     }
 }

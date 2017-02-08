@@ -38,38 +38,32 @@ namespace ProjectFork
             }
         }
 
-        public int Status
-        {
-            get
-            {
-                return this._status;
-            }
 
-            set
-            {
-                if (value <= 2 && value >= 0)
-                    this._status = value;
-                else
-                    this._status = 0;
-            }
-        }
-
-        private int _status = 0;//0 - 正常 1 - BREAK 2 - CONTINUE
         private bool _terminated = false;
         private string _filename;
-        List<ScriptLine> _script;
-        string[] _content;
+        private List<ScriptLine> _script;
+        private string[] _content;
+        private ScriptLines.NOP _scriptline;
 
         private Dictionary<string, string> _localvars;
 
         public ScriptFile(string file)
         {
+            this._filename = file;
             this._script = new List<ScriptLine>();
             this._localvars = new Dictionary<string, string>();
-            this._filename = file;
+            this._scriptline = new ScriptLines.NOP();
             this.Reload();
         }
 
+        public ScriptFile(ScriptFile file)
+        {
+            this._filename = file._filename;
+            this._script = new List<ScriptLine>(file._script);
+            this._content = file._content;
+            this._localvars = new Dictionary<string, string>();
+            this._scriptline = new ScriptLines.NOP();
+        }
 
         public string GetLine(int i, bool trim = true)
         {
@@ -89,7 +83,7 @@ namespace ProjectFork
             {
                 string l = this.GetLine(i);
                 if (String.IsNullOrEmpty(l) || l[0] == ';') continue;//空行以及注释
-                _script.Add(Helper.CreateScriptLine(l, ref i, this));
+                _script.Add(Helper.CreateScriptLine(l, ref i, this, this._scriptline));
             }
 
         }
@@ -98,9 +92,10 @@ namespace ProjectFork
         {
             foreach(var i in _script)
             {
-                if (this._terminated) return;
-                if (this._status != 0) throw new Exceptions.RuntimeException("Unexpected BREAK/CONTINUE");
                 i.Run(console);
+                if (this._terminated) return;
+                if (this._scriptline.GetStatus() != 0) throw new Exceptions.RuntimeException("Unexpected BREAK/CONTINUE");
+
             }
             this._localvars.Clear();
         }
@@ -121,6 +116,11 @@ namespace ProjectFork
         public Dictionary<string, string> GetLocalVarDictionary()
         {
             return this._localvars;
+        }
+
+        public ScriptFile GetCopy()
+        {
+            return new ScriptFile(this);
         }
     }
 }

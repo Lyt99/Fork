@@ -19,9 +19,9 @@ namespace ProjectFork.ScriptLines
             this._default = null;
         }
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             List<ScriptLine> nowcase  = null;
             this._deter = line;
             while (true)
@@ -45,7 +45,7 @@ namespace ProjectFork.ScriptLines
 
                 if(nowcase != null)
                 {
-                    nowcase.Add(Helper.CreateScriptLine(i, ref e, script));
+                    nowcase.Add(Helper.CreateScriptLine(i, ref e, script, this));
                 }
                 else
                 {
@@ -61,11 +61,11 @@ namespace ProjectFork.ScriptLines
             string c = Expression.INSTANCE.RandR(this._deter, this.ScriptFile);
             if (this._switches.ContainsKey(c))
             {
-                this.RunList(this._switches[c], console);
+                Scripter.INSTANCE.RunScript(this._switches[c], this, console);
             }
             else if(this._default != null)
             {
-                this.RunList(this._default, console);
+                Scripter.INSTANCE.RunScript(this._default, this, console);
             }
             else
             {
@@ -73,14 +73,6 @@ namespace ProjectFork.ScriptLines
             }
         }
 
-        private void RunList(List<ScriptLine> list, FConsole console)
-        {
-            foreach(var i in list)
-            {
-                if (this.ScriptFile.Terminated || this.ScriptFile.Status != 0) break;
-                i.Run(console);
-            }
-        }
 
         private List<ScriptLine> CreateCase(string _case)
         {

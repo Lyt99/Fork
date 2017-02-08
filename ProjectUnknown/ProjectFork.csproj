@@ -40,8 +40,12 @@
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ExpressionEvaluator">
-      <HintPath>.\ExpressionEvaluator.dll</HintPath>
+    <Reference Include="Bass.Net">
+      <HintPath>References\Bass.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressionEvaluator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=90d9f15d622e2348, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>References\ExpressionEvaluator.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,21 +64,26 @@
     <Compile Include="Exceptions\RuntimeException.cs" />
     <Compile Include="Exceptions\ScriptNotFoundException.cs" />
     <Compile Include="Expression.cs" />
+    <Compile Include="FSoundPlayer.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="Enum\CommandType.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="FConsole.cs" />
     <Compile Include="SaveManager.cs" />
+    <Compile Include="ScriptLines\DICTCONTAIN.cs" />
+    <Compile Include="ScriptLines\GO.cs" />
     <Compile Include="ScriptLines\PRINTC.cs" />
     <Compile Include="ScriptLines\LOAD.cs" />
     <Compile Include="ScriptLines\PLAYBGM.cs" />
     <Compile Include="ScriptLines\PLAYSOUND.cs" />
     <Compile Include="ScriptLines\PRINTX.cs" />
+    <Compile Include="ScriptLines\QUIT.cs" />
+    <Compile Include="ScriptLines\RDICTCONTAIN.cs" />
     <Compile Include="ScriptLines\SAVE.cs" />
     <Compile Include="ScriptLines\SELECT.cs" />
     <Compile Include="ScriptLines\STOPBGM.cs" />
     <Compile Include="ScriptLines\STOPSOUND.cs" />
     <Compile Include="ScriptLines\TITLE.cs" />
+    <Compile Include="ScriptLines\WHILE.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="Models\Command.cs" />
     <Compile Include="ScriptLines\ADDCMD.cs" />
@@ -90,9 +99,9 @@
     <Compile Include="ScriptLines\LISTCONTAIN.cs" />
     <Compile Include="ScriptLines\LISTDEL.cs" />
     <Compile Include="ScriptLines\NOP.cs" />
-    <Compile Include="ScriptLines\PRINTFMT.cs" />
-    <Compile Include="ScriptLines\PRINTMULTI.cs" />
-    <Compile Include="ScriptLines\PRINTVARS.cs" />
+    <Compile Include="ScriptLines\PRINTF.cs" />
+    <Compile Include="ScriptLines\PRINTM.cs" />
+    <Compile Include="ScriptLines\PRINTV.cs" />
     <Compile Include="ScriptLines\SET.cs" />
     <Compile Include="ScriptLines\SETFLAG.cs" />
     <Compile Include="ScriptLines\SETVAR.cs" />
@@ -106,13 +115,14 @@
     <Compile Include="ScriptLines\RUN.cs" />
     <Compile Include="ScriptLines\SLEEP.cs" />
     <Compile Include="ScriptLines\SWITCH.cs" />
+    <Compile Include="User32API.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Container\" />
+    <Content Include="说明.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

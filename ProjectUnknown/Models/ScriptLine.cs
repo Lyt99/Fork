@@ -25,18 +25,35 @@ namespace ProjectFork.Models
         }
 
         private ScriptFile _script;
+        private ScriptLine _belong;
         private int _line = -1;
-
+        private int _status = 0;
 
         public virtual void Run(FConsole console)
         {
-
+            this._status = 0;
         }
 
-        public virtual void Process(string line, ref int e, ScriptFile script)
+        public virtual void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             this._line = e;
             this._script = script;
+            this._belong = belong;
         }   
+
+        public ScriptLine GetBelong()
+        {
+            return this._belong;
+        }
+
+        public int GetStatus()
+        {
+            return this._status;
+        }
+
+        public void SetStatus(int status)
+        {
+            this._status = status;
+        }
     }
 }

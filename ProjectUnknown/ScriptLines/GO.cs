@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectFork.Models;
 
 namespace ProjectFork.ScriptLines
 {
-    class RUN : Models.ScriptLine
+    class GO : Models.ScriptLine
     {
         private string _script;
-        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
+        public override void Process(string line, ref int e, ScriptFile script, ScriptLine belong)
         {
             base.Process(line, ref e, script, belong);
             this._script = line;
@@ -18,8 +19,14 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            string s = Expression.INSTANCE.ReplaceVF(this._script, this.ScriptFile);
-            Scripter.INSTANCE.RunScript(s);
+            string n = Expression.INSTANCE.ReplaceVF(this._script, this.ScriptFile);
+            ScriptFile sf = Scripter.INSTANCE.GetScriptFile(n).GetCopy();
+
+            Task.Run(() =>
+            {
+                sf.Run(console);
+            });
+
         }
     }
 }

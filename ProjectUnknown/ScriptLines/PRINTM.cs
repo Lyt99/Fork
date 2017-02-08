@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class PRINTMULTI : Models.ScriptLine
+    class PRINTM : Models.ScriptLine
     {
         private List<string> _text;
 
-        public PRINTMULTI()
+        public PRINTM()
         {
             this._text = new List<string>();
         }
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             while (true)
             {
                 string i = script.GetLine(++e, false);
-                if (Helper.Trim(i) == "ENDPRINTMULTI") break;
+                if (Helper.Trim(i) == "ENDPRINTM") break;
                 _text.Add(i);
 
                 if (e > script.Line) throw new Exceptions.ParserException(line, this.Line, script); 

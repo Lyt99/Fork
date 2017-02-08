@@ -17,9 +17,9 @@ namespace ProjectFork.ScriptLines
             console.Write(this._text);
         }
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             this._text = line;
         }
     }

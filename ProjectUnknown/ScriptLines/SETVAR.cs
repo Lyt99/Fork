@@ -6,25 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class SETVAR : Models.ScriptLine
+    class SETVAR : SET
     {
-        private string _key;
-        private string _value;
-
-        public override void Process(string line, ref int e, ScriptFile script)
+        protected override void Set(string k, string s)
         {
-            base.Process(line, ref e, script);
-            var r = Helper.Split(line);
-            if (String.IsNullOrEmpty(r[0]) || String.IsNullOrEmpty(r[1])) throw new Exceptions.ParserException(line, e, script);
-            this._key = r[0];
-            this._value = r[1];
-        }
-
-        public override void Run(FConsole console)
-        {
-            base.Run(console);
-            string r = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
-            DataManager.INSTANCE.SetVars(this._key, r);
+            DataManager.INSTANCE.SetVars(k, s);
         }
     }
 }

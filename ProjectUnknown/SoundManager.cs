@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
 
 namespace ProjectFork
 {
@@ -23,14 +19,15 @@ namespace ProjectFork
         public static string Path = "Sound\\";
         
         private string _path;
-        private Dictionary<string, System.Media.SoundPlayer> _sounds;
+        private Dictionary<string, FSoundPlayer> _sounds;
         private string _BGM;
 
         public SoundManager()
         {
+            Un4seen.Bass.Bass.BASS_Init(-1, 44100, Un4seen.Bass.BASSInit.BASS_DEVICE_DEFAULT, User32API.GetCurrentWindowHandle());
             this._BGM = null;
-            this._sounds = new Dictionary<string, System.Media.SoundPlayer>();
-            this._path = new DirectoryInfo(Path).FullName;
+            this._sounds = new Dictionary<string, FSoundPlayer>();
+            this._path = System.IO.Path.GetFullPath(Path);
         }
 
         public void Start()
@@ -43,7 +40,7 @@ namespace ProjectFork
             
             foreach(string i in sounds)
             {
-                SoundPlayer sp = new SoundPlayer(i);
+                FSoundPlayer sp = new FSoundPlayer(i);
                 sp.Load();
                 this._sounds.Add(Helper.GetRPath(i, this._path), sp);
             }
@@ -67,14 +64,9 @@ namespace ProjectFork
             this.GetSoundPlayer(name).PlayLooping();
         }
 
-        public void PlaySound(string name)
-        {
-            this.GetSoundPlayer(name).Play();
-        } 
-
         public void PlaySoundSync(string name)
         {
-            this.GetSoundPlayer(name).PlaySync();
+            this.GetSoundPlayer(name).Play();
         }
 
         public void StopPlay(string name = null)
@@ -94,7 +86,7 @@ namespace ProjectFork
             }
         }
 
-        public SoundPlayer GetSoundPlayer(string name)
+        public FSoundPlayer GetSoundPlayer(string name)
         {
             if (!this._sounds.ContainsKey(name)) throw new Exceptions.ScriptNotFoundException(name);
             return this._sounds[name];
@@ -102,7 +94,7 @@ namespace ProjectFork
 
         private void GetAllSounds(DirectoryInfo di, List<string> scriptlist)
         {
-            foreach (var i in di.GetFiles("*.wav"))
+            foreach (var i in di.GetFiles())
             {
                 scriptlist.Add(i.FullName);
             }

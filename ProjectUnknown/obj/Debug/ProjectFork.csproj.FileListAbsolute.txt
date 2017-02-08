@@ -7,3 +7,4 @@ D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnkn
 D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\ExpressionEvaluator.dll
 D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\Antlr3.Runtime.dll
 D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\Antlr3.Runtime.xml
+D:\用户目录\Documents\Visual Studio 2015\Projects\ProjectUnknown\ProjectUnknown\bin\Debug\Bass.Net.dll

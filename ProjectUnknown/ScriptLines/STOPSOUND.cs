@@ -9,10 +9,10 @@ namespace ProjectFork.ScriptLines
     class STOPSOUND : Models.ScriptLine
     {
         public string _name;
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             this._name = line;
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
 
         }
 

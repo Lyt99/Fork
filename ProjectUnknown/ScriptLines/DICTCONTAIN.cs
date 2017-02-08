@@ -6,32 +6,38 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class SET : Models.ScriptLine
+    class DICTCONTAIN : Models.ScriptLine
     {
-        private string _key;
-        private string _value;
+
+        private string _flag;
+        public string _key;
+
         public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             base.Process(line, ref e, script, belong);
             string[] r = Helper.Split(line);
-            this._key = r[0];
-            if (String.IsNullOrEmpty(this._key)) throw new Exceptions.ParserException(line, e, this.ScriptFile);
-            this._value = r[1];
-
+            this._flag = r[0];
+            this._key = r[1];
         }
 
         public override void Run(FConsole console)
         {
             base.Run(console);
+            string f = Expression.INSTANCE.ReplaceVF(this._flag, this.ScriptFile);
             string k = Expression.INSTANCE.ReplaceVF(this._key, this.ScriptFile);
-            string s = Expression.INSTANCE.RandR(this._value, this.ScriptFile);
-            this.Set(k, s);
+            if (Test(k))
+            {
+                DataManager.INSTANCE.SetFlag(f, true);
+            }
+            else
+            {
+                DataManager.INSTANCE.SetFlag(f, false);
+            }
         }
 
-        protected virtual void Set(string k, string s)
+        public virtual bool Test(string k)
         {
-            this.ScriptFile.SetLocalVars(k, s);
+            return (DataManager.INSTANCE.GetDictDictionary().ContainsKey(k));
         }
     }
 }
- 

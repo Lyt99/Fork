@@ -10,9 +10,9 @@ namespace ProjectFork.ScriptLines
     class SLEEP : Models.ScriptLine
     {
         private string _sleeptime;
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             try
             {
                 _sleeptime = line;

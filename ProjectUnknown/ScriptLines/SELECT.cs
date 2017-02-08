@@ -10,9 +10,9 @@ namespace ProjectFork.ScriptLines
     {
         private string _var;
         private char[] _selection;
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             string[] i = line.Split(' ');
             if (i.Length != 2) throw new Exceptions.ParserException(line, e, script);
 

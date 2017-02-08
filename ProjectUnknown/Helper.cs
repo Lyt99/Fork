@@ -4,6 +4,7 @@ using ProjectFork.ScriptLines;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace ProjectFork
     class Helper
     {
         //创建
-        public static ScriptLine CreateScriptLine(string line, ref int e, ScriptFile script)
+        public static ScriptLine CreateScriptLine(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             string command = String.Empty, c = String.Empty;
             int pos = line.IndexOf(' ');
@@ -25,116 +26,15 @@ namespace ProjectFork
 
             if (String.IsNullOrEmpty(command) || line[0] == ';') command = "NOP";
             ScriptLine sl;
-            switch(command)
-            {
-                case "PRINT":
-                    sl = new PRINT();
-                    break;
-                case "PRINTL":
-                    sl = new PRINTL();
-                    break;
-                case "SLEEP":
-                    sl = new SLEEP();
-                    break;
-                case "RUN":
-                    sl = new RUN();
-                    break;
-                case "SETVAR":
-                    sl = new SETVAR();
-                    break;
-                case "PRINTVARS":
-                    sl = new PRINTVARS();
-                    break;
-                case "PRINTMULTI":
-                    sl = new PRINTMULTI();
-                    break;
-                case "IF":
-                    sl = new IF();
-                    break;
-                case "EXIT":
-                    sl = new EXIT();
-                    break;
-                case "LISTADD":
-                    sl = new LISTADD();
-                    break;
-                case "LISTDEL":
-                    sl = new LISTDEL();
-                    break;
-                case "FOR":
-                    sl = new FOR();
-                    break;
-                case "SET":
-                    sl = new SET();
-                    break;
-                case "LISTCONTAIN":
-                    sl = new LISTCONTAIN();
-                    break;
-                case "COLOR":
-                    sl = new COLOR();
-                    break;
-                case "SWITCH":
-                    sl = new SWITCH();
-                    break;
-                case "BREAK":
-                    sl = new BREAK();
-                    break;
-                case "CONTINUE":
-                    sl = new CONTINUE();
-                    break;
-                case "INPUT":
-                    sl = new INPUT();
-                    break;
-                case "NOP":
-                    sl = new NOP();
-                    break;
-                case "SETFLAG":
-                    sl = new SETFLAG();
-                    break;
-                case "ADDCMD":
-                    sl = new ADDCMD();
-                    break;
-                case "CLEAR":
-                    sl = new CLEAR();
-                    break;
-                case "PRINTFMT":
-                    sl = new PRINTFMT();
-                    break;
-                case "PLAYSOUND":
-                    sl = new PLAYSOUND();
-                    break;
-                case "STOPSOUND":
-                    sl = new STOPSOUND();
-                    break;
-                case "PLAYBGM":
-                    sl = new PLAYBGM();
-                    break;
-                case "STOPBGM":
-                    sl = new STOPBGM();
-                    break;
-                case "SAVE":
-                    sl = new SAVE();
-                    break;
-                case "LOAD":
-                    sl = new LOAD();
-                    break;
-                case "SELECT":
-                    sl = new SELECT();
-                    break;
-                case "TITLE":
-                    sl = new TITLE();
-                    break;
-                case "PRINTX":
-                    sl = new PRINTX();
-                    break;
-                case "PRINTC":
-                    sl = new PRINTC();
-                    break;
-                default:
-                    throw new ParserException(line, e, script);
 
-            }
+            Assembly ass = Assembly.GetExecutingAssembly();
+            string cname = String.Format("ProjectFork.ScriptLines.{0}", command);
 
-            sl.Process(c, ref e, script);
+            sl = (ScriptLine)ass.CreateInstance(cname);
+
+            if(sl == null) throw new Exceptions.ParserException(line, e, script);
+
+            sl.Process(c, ref e, script, belong);
             return sl;
 
         }

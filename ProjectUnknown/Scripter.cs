@@ -1,4 +1,5 @@
 ﻿using ProjectFork.Exceptions;
+using ProjectFork.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,6 +90,19 @@ namespace ProjectFork
             else
             {
                 throw new ScriptNotFoundException(filename);
+            }
+        }
+
+        public void RunScript(List<ScriptLine> list, ScriptLine line, FConsole console)
+        {
+            foreach (var i in list)
+            {
+                i.Run(console);
+                if (line.ScriptFile.Terminated || line.GetStatus() != 0)
+                {
+                    line.GetBelong().SetStatus(line.GetStatus());
+                    break;
+                }
             }
         }
 

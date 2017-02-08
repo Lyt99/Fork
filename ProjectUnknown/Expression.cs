@@ -53,6 +53,7 @@ namespace ProjectFork
 
             while (true)
             {
+                if (String.IsNullOrEmpty(text)) break;
                 var r = Regex.Matches(text, pattern);
                 if (r.Count == 0) break;
                 foreach(Match i in r)

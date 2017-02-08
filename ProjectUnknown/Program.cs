@@ -11,6 +11,7 @@ namespace ProjectFork
         private static Scripter _scripter;
         static void Main(string[] args)
         {
+            Un4seen.Bass.BassNet.Registration("lyt1999131@hotmail.com", "2X534122312422");
             try
             {
                 _scripter = Scripter.INSTANCE;

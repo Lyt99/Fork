@@ -11,7 +11,7 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            this.ScriptFile.Status = 1;
+            this.GetBelong().SetStatus(1);
         }
     }
 }

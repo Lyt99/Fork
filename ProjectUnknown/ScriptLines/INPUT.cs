@@ -10,10 +10,10 @@ namespace ProjectFork.ScriptLines
     {
         private string _varname;
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             this._varname = line;
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
         }
 
         public override void Run(FConsole console)

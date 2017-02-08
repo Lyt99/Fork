@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class CONTINUE : Models.ScriptLine
+    class QUIT : Models.ScriptLine
     {
         public override void Run(FConsole console)
         {
             base.Run(console);
-            this.GetBelong().SetStatus(2);
+            Environment.Exit(0);
         }
     }
 }

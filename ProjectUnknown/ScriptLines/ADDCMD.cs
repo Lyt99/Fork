@@ -11,9 +11,9 @@ namespace ProjectFork.ScriptLines
         private string _scriptfile;
         private string _cmd;
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             string[] r = Helper.Split(line);
 
             if (r[1] == "") throw new Exceptions.ParserException(line, e, script);

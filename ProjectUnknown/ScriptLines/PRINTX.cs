@@ -12,9 +12,9 @@ namespace ProjectFork.ScriptLines
         private string _text;
         private string _sleeptime;
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             string[] r = Helper.Split(line);
             this._sleeptime = r[0];
             this._text = r[1];

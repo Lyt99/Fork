@@ -12,9 +12,9 @@ namespace ProjectFork.ScriptLines
         private string _key;
         private string _value;
 
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
 
             string[] r = line.Split(' ');
             if (r.Length != 3) throw new Exceptions.ParserException(line, e, script);

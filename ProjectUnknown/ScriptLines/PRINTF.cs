@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class PRINTVARS : Models.ScriptLine
+    class PRINTF : Models.ScriptLine
     {
         private string _text;
-
-        public override void Process(string line, ref int e, ScriptFile script)
+        public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
-            base.Process(line, ref e, script);
+            base.Process(line, ref e, script, belong);
             this._text = line;
         }
 
         public override void Run(FConsole console)
         {
             base.Run(console);
-            string p = Expression.INSTANCE.ReplaceVF(this._text, this.ScriptFile);
-            console.Write(p);
+            string u = Expression.INSTANCE.UnescapeCodes(this._text);
+            console.Write(u);
         }
     }
 }

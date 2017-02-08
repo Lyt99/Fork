@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectFork.ScriptLines
 {
-    class CONTINUE : Models.ScriptLine
+    class RDICTCONTAIN : DICTCONTAIN
     {
-        public override void Run(FConsole console)
+        public override bool Test(string k)
         {
-            base.Run(console);
-            this.GetBelong().SetStatus(2);
+            return DataManager.INSTANCE.GetDictDictionary().ContainsValue(k);
         }
     }
 }
