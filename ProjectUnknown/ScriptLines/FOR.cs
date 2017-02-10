@@ -17,7 +17,7 @@ namespace ProjectFork.ScriptLines
 
         private string _from;
         private string _to;
-        
+
         public FOR()
         {
             this._body = new List<ScriptLine>();
@@ -34,7 +34,7 @@ namespace ProjectFork.ScriptLines
                 this._mode = 0;
                 this._listname = r[1];
             }
-            if(r.Length == 3)
+            if (r.Length == 3)
             {
                 this._mode = 1;
                 this._from = r[1];
@@ -53,48 +53,28 @@ namespace ProjectFork.ScriptLines
         public override void Run(FConsole console)
         {
             base.Run(console);
-            if(this._mode == 0)
+            if (this._mode == 0)
             {
                 string listname = Expression.INSTANCE.ReplaceVF(this._listname, this.ScriptFile);
                 var list = DataManager.INSTANCE.GetList(listname);
                 if (list == null) throw new Exceptions.RuntimeException("Cant't find List: " + this._listname);
-                bool break_token = false;
                 foreach (var i in list)
                 {
-                    if (this.ScriptFile.Terminated || break_token) break;
+                    if (this.ScriptFile.Terminated || this.GetStatus() == 1) break;
                     this.ScriptFile.SetLocalVars(this._varname, i);
-                    foreach (var i1 in this._body)
-                    {
-                        Scripter.INSTANCE.RunScript(this._body, this, console);
-                        if (this.GetStatus() == 1) break;
-                    }
+                    Scripter.INSTANCE.RunScript(this._body, this, console);
                 }
                 return;
             }
-            if(this._mode == 1)
+            if (this._mode == 1)
             {
-                bool break_token = false;
                 int from = Convert.ToInt32(Expression.INSTANCE.RandR(this._from, this.ScriptFile));
                 int to = Convert.ToInt32(Expression.INSTANCE.RandR(this._to, this.ScriptFile));
-                for(int i = from;i <= to;++i)
+                for (int i = from; i <= to; ++i)
                 {
-                    if (this.ScriptFile.Terminated  || break_token) break;
+                    if (this.ScriptFile.Terminated || this.GetStatus() == 1) break;
                     this.ScriptFile.SetLocalVars(this._varname, i.ToString());
-                    foreach (var i1 in this._body)
-                    {
-                        i1.Run(console);
-
-                        if (this.GetStatus() == 1)
-                        {
-                            break_token = true;
-                        }
-
-                        if (this.ScriptFile.Terminated || this.GetStatus() != 0)
-                        {
-                            this.SetStatus(0);
-                            break;
-                        }
-                    }
+                    Scripter.INSTANCE.RunScript(this._body, this, console);
                 }
             }
         }
