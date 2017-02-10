@@ -49,7 +49,8 @@ namespace ProjectFork
 
         public string ReplaceVF(string text, ScriptFile localScript)
         {
-            string pattern = @"\{([A-Z]+?):([\s.-_0-9a-zA-Z]+?)\}";
+            //string pattern = @"\{([A-Z]+?):([\s.-_0-9a-zA-Z]+?)\}";
+            string pattern = @"\{([A-Z]+?):([^\{\}:]+?)\}";
 
             while (true)
             {
