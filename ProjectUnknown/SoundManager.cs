@@ -54,6 +54,16 @@ namespace ProjectFork
             this._BGM = name;
         }
 
+        public void PauseBGM()
+        {
+            this.PausePlay(this._BGM);
+        }
+
+        public void ResumeBGM()
+        {
+            this.ResumePlay(this._BGM);
+        }
+
         public void StopBGM()
         {
             this.StopPlay(this._BGM);
@@ -67,6 +77,40 @@ namespace ProjectFork
         public void PlaySoundSync(string name)
         {
             this.GetSoundPlayer(name).Play();
+        }
+
+        public void PausePlay(string name = null)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                foreach (var i in this._sounds)
+                {
+                    if (i.Key == this._BGM) continue;
+                    i.Value.Pause();
+                }
+
+            }
+            else
+            {
+                this.GetSoundPlayer(name).Pause();
+            }
+        }
+
+        public void ResumePlay(string name = null)
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                foreach (var i in this._sounds)
+                {
+                    if (i.Key == this._BGM) continue;
+                    i.Value.Resume();
+                }
+
+            }
+            else
+            {
+                this.GetSoundPlayer(name).Resume();
+            }
         }
 
         public void StopPlay(string name = null)

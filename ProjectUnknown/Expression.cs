@@ -69,6 +69,7 @@ namespace ProjectFork
             //特殊变量
             text = text.Replace("{RAND}", this._random.Next(0, 100).ToString());
             text = text.Replace("{TIME}", Helper.GetTime().ToString());
+            text = text.Replace("{VERSION}", DataManager.VERSION);
 
             return text;
             

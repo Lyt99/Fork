@@ -8,7 +8,7 @@ namespace ProjectFork.ScriptLines
 {
     class PLAYSOUND : Models.ScriptLine
     {
-        private string _filename;
+        protected string _filename;
         public override void Process(string line, ref int e, ScriptFile script, Models.ScriptLine belong)
         {
             base.Process(line, ref e, script, belong);

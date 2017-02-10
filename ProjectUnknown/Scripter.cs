@@ -40,7 +40,7 @@ namespace ProjectFork
         
         public Scripter()
         {
-            this._path = new DirectoryInfo(Path).FullName;
+            this._path = System.IO.Path.GetFullPath(Path);
             this._console = new FConsole();
             this._filelist = new Dictionary<string, ScriptFile>();
         }
@@ -49,7 +49,7 @@ namespace ProjectFork
         public void Load()
         {
             DirectoryInfo di = new DirectoryInfo(this._path);
-            if (!di.Exists) throw new ScriptNotFoundException(this._path);
+            if (!di.Exists) di.Create();
             List<string> scripts = new List<string>();
 
             this.GetAllScripts(di, scripts);

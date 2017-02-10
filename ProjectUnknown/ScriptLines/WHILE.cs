@@ -35,6 +35,7 @@ namespace ProjectFork.ScriptLines
             base.Run(console);
             while (true)
             {
+                if (this.ScriptFile.Terminated || this.GetStatus() == 1) break;//BREAK
                 string d = Expression.INSTANCE.RandR(this._con, this.ScriptFile);
                 if (d == "True") Scripter.INSTANCE.RunScript(this._body, this, console);
                 else if (d == "False") break;

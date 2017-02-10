@@ -12,12 +12,14 @@ namespace ProjectFork
         private string _path;
         private int _stream;
         private bool _loaded;
+        private bool _paused;
 
         //卧槽，BASS这个库好用极了
         public FSoundPlayer(string path)
         {
             this._path = path;
             this._loaded = false;
+            this._paused = false;
         }
 
 
@@ -50,6 +52,20 @@ namespace ProjectFork
         public void Stop()
         {
             Bass.BASS_ChannelStop(this._stream);
+        }
+
+        public void Pause()
+        {
+            Bass.BASS_ChannelPause(this._stream);
+            this._paused = true;
+        }
+
+        public void Resume()
+        {
+            if (this._paused)
+            {
+                this.Play();
+            }
         }
 
 

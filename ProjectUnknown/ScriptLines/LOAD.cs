@@ -27,7 +27,7 @@ namespace ProjectFork.ScriptLines
                 r = SaveManager.INSTANCE.Load(s + ".sav");
             }
 
-            DataManager.INSTANCE.SetFlag("SAVE_SUCCESS", r);
+            DataManager.INSTANCE.SetFlag("LOAD_SUCCESS", r);
         }
     }
 }
