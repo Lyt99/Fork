@@ -100,7 +100,7 @@ namespace ProjectFork
                 i.Run(console);
                 if (line.ScriptFile.Terminated || line.GetStatus() != 0)
                 {
-                    line.GetBelong().SetStatus(line.GetStatus());
+                    line.GetBelong().SetStatus(line.GetStatus(), line);
                     break;
                 }
             }

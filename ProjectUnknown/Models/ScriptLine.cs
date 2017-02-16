@@ -51,8 +51,9 @@ namespace ProjectFork.Models
             return this._status;
         }
 
-        public void SetStatus(int status)
+        public void SetStatus(int status, ScriptLine curr)
         {
+            if (curr is ScriptLines.WHILE || curr is ScriptLines.FOR) return;
             this._status = status;
         }
     }

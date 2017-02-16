@@ -26,7 +26,7 @@ namespace ProjectFork.ScriptLines
             {
                 string s = this.ScriptFile.GetLine(++e);
                 if (s == "ENDWHILE") break;
-                this._body.Add(Helper.CreateScriptLine(s, ref e, this.ScriptFile, belong));
+                this._body.Add(Helper.CreateScriptLine(s, ref e, this.ScriptFile, this));
             }
         }
 

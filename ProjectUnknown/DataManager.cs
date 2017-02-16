@@ -19,7 +19,7 @@ namespace ProjectFork
         }
 
         public static string DictPath = "DICT\\";
-        public static string VERSION = "0.0.1A";
+        public static readonly string VERSION = "0.0.1.0";
 
         private static DataManager _instance;
         private Dictionary<string, string> _vars;
